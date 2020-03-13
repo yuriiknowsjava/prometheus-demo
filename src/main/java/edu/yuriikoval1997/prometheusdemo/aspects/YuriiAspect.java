@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static edu.yuriikoval1997.prometheusdemo.PrometheusDemoApplication.EXCEPTION_TO_STATUS_CODE;
+
 @Component
 @Aspect
 public class YuriiAspect {
@@ -63,7 +65,7 @@ public class YuriiAspect {
     public void yuriiAfterThrowing(JoinPoint jp, YuriiCounted yuriiCounted, Throwable e) {
         String[] labels = new String[yuriiCounted.labels().length + 1];
         System.arraycopy(yuriiCounted.labels(), 0, labels, 0, yuriiCounted.labels().length);
-        labels[labels.length-1] = e.getClass().getSimpleName();
+        labels[labels.length-1] = EXCEPTION_TO_STATUS_CODE.get(e.getClass());
         ((HelloController) jp.getThis())
                 .getHelloWorldCounter()
                 .labels(labels)

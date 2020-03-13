@@ -8,9 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import java.util.Map;
+
 @EnableAspectJAutoProxy
 @SpringBootApplication
 public class PrometheusDemoApplication implements CommandLineRunner {
+
+	public static final Map<Class<? extends Exception>, String> EXCEPTION_TO_STATUS_CODE = Map.of(RuntimeException.class, "400");
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrometheusDemoApplication.class, args);

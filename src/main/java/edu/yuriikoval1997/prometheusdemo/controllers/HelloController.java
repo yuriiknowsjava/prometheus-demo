@@ -28,7 +28,7 @@ public class HelloController {
         double random = Math.random();
         if (random > 0.5) {
             helloWorldCounter.labels("/hello", "GET", "400").inc();
-            return ResponseEntity.status(400).body(Map.of("message", "GET"));
+            return ResponseEntity.status(422).body(Map.of("message", "GET"));
         }
         helloWorldCounter.labels("/hello", "GET", "200").inc();
         return ResponseEntity.ok().body(Map.of("message", "GET"));
