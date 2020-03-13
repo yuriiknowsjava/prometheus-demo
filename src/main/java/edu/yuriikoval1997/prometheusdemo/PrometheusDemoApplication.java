@@ -7,14 +7,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.naming.AuthenticationException;
 import java.util.Map;
 
 @EnableAspectJAutoProxy
 @SpringBootApplication
 public class PrometheusDemoApplication implements CommandLineRunner {
 
-	public static final Map<Class<? extends Exception>, String> EXCEPTION_TO_STATUS_CODE = Map.of(RuntimeException.class, "400");
+	public static final Map<Class<? extends Exception>, String> EXCEPTION_TO_STATUS_CODE = Map.of(
+			RuntimeException.class, "400",
+			AuthenticationException.class, "401",
+			HttpClientErrorException.Unauthorized.class, "403",
+			NullPointerException.class, "500"
+	);
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrometheusDemoApplication.class, args);
