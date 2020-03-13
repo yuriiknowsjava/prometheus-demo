@@ -27,7 +27,7 @@ public class HelloController {
     public ResponseEntity<Map<String, Object>> helloGet() {
         double random = Math.random();
         if (random > 0.5) {
-            helloWorldCounter.labels("/hello", "GET", "400").inc();
+            helloWorldCounter.labels("/hello", "GET", "422").inc();
             return ResponseEntity.status(422).body(Map.of("message", "GET"));
         }
         helloWorldCounter.labels("/hello", "GET", "200").inc();
